@@ -1,18 +1,15 @@
+require("dotenv").config();
 const path = require("path");
 const cors = require("cors");
 const express = require("express");
+const passport = require("passport");
 const connectDB = require("./config/db");
 const cookieSession = require("cookie-session");
-require("dotenv").config();
-const passport = require("passport");
 // require("./models/User");
 require("./services/passport");
 
 const app = express();
 app.use(cors());
-
-// Connect Database
-connectDB();
 
 // Init Middleware
 app.use(express.json());
@@ -22,8 +19,12 @@ app.use(
     keys: [process.env.COOKIEKEY],
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Connect Database
+connectDB();
 
 // Look inside public folder to look for static files such as css, images etc.
 app.use("/", express.static(path.join(__dirname, "public")));

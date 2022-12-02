@@ -10,17 +10,17 @@ module.exports = (app) => {
 
   app.get(
     "/auth/google/callback",
-    passport.authenticate("google"),
+    passport.authenticate("google", {
+      failureRedirect: "http://localhost:3000",
+    }),
     (req, res) => {
-      res.redirect(
-        "https://job-hunter-frontend-fdfqktsx9-itzik-dan.vercel.app/jobs"
-      );
+      res.redirect("http://localhost:3000/jobs");
     }
   );
 
   app.get("/api/logout", (req, res) => {
     req.logout();
-    res.redirect("/");
+    res.redirect("http://localhost:3000");
   });
 
   app.get("/api/current_user", (req, res) => {

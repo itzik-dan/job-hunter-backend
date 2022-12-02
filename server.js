@@ -11,7 +11,7 @@ require("./services/passport");
 const app = express();
 app.use(
   cors({
-    origin: "https://job-hunter-frontend-f787nebzo-itzik-dan.vercel.app",
+    origin: "https://job-hunter-frontend.vercel.app",
     credentials: true,
   })
 );

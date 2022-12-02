@@ -12,7 +12,9 @@ module.exports = (app) => {
     "/auth/google/callback",
     passport.authenticate("google"),
     (req, res) => {
-      res.redirect("http://localhost:3000/jobs");
+      res.redirect(
+        "https://job-hunter-frontend-fdfqktsx9-itzik-dan.vercel.app/jobs"
+      );
     }
   );
 

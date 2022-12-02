@@ -13,7 +13,7 @@ module.exports = (app) => {
     passport.authenticate("google"),
     (req, res) => {
       res.redirect(
-        "/jobs"
+        "https://job-hunter-frontend-fdfqktsx9-itzik-dan.vercel.app/jobs"
       );
     }
   );

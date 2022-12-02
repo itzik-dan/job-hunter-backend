@@ -9,7 +9,7 @@ const cookieSession = require("cookie-session");
 require("./services/passport");
 
 const app = express();
-
+app.use(cors());
 // Connect Database
 connectDB();
 
@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: ["asdkgburtttgndfndss"],
+    keys: [process.env.COOKIEKEY],
   })
 );
 

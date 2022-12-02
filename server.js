@@ -9,7 +9,12 @@ const cookieSession = require("cookie-session");
 require("./services/passport");
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://job-hunter-frontend-f787nebzo-itzik-dan.vercel.app",
+    credentials: true,
+  })
+);
 
 // Init Middleware
 app.use(express.json());

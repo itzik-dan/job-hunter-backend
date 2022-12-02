@@ -9,24 +9,22 @@ const cookieSession = require("cookie-session");
 require("./services/passport");
 
 const app = express();
-app.use(
-  cors()
-);
+app.use(cors());
+
+// Connect Database
+connectDB();
 
 // Init Middleware
 app.use(express.json());
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: [process.env.COOKIEKEY],
+    keys: ["asdkgburtttgndfndss"],
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-// Connect Database
-connectDB();
 
 // Look inside public folder to look for static files such as css, images etc.
 app.use("/", express.static(path.join(__dirname, "public")));

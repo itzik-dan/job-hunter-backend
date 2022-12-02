@@ -9,7 +9,6 @@ const cookieSession = require("cookie-session");
 require("./services/passport");
 
 const app = express();
-app.use(cors());
 
 // Connect Database
 connectDB();

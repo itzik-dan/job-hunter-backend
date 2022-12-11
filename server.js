@@ -12,12 +12,7 @@ connectDB();
 
 // Init Middleware
 app.use(express.json());
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  })
-);
+app.use(cors());
 
 // Look inside public folder to look for static files such as css, images etc.
 app.use("/", express.static(path.join(__dirname, "public")));

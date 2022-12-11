@@ -1,29 +1,10 @@
-const passport = require("passport");
+const express = require("express");
+const router = express.Router();
+// controllers
+const { signUp, signIn } = require("../../controllers/authController");
 
-module.exports = (app) => {
-  app.get(
-    "/auth/google",
-    passport.authenticate("google", {
-      scope: ["profile", "email"],
-    })
-  );
+router.post("/api/signup", signUp);
 
-  app.get(
-    "/auth/google/callback",
-    passport.authenticate("google", {
-      failureRedirect: "http://localhost:3000",
-    }),
-    (req, res) => {
-      res.redirect("http://localhost:3000/jobs");
-    }
-  );
+router.post("/api/signin", signIn);
 
-  app.get("/api/logout", (req, res) => {
-    req.logout();
-    res.redirect("http://localhost:3000");
-  });
-
-  app.get("/api/current_user", (req, res) => {
-    res.send(req.user);
-  });
-};
+module.exports = router;

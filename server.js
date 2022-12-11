@@ -2,40 +2,34 @@ require("dotenv").config();
 const path = require("path");
 const cors = require("cors");
 const express = require("express");
-const passport = require("passport");
 const connectDB = require("./config/db");
-const cookieSession = require("cookie-session");
-// require("./models/User");
-require("./services/passport");
+const { errorHandler } = require("./middlewares/errorMiddleware");
 
 const app = express();
-app.use(cors());
+
 // Connect Database
 connectDB();
 
 // Init Middleware
 app.use(express.json());
 app.use(
-  cookieSession({
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: [process.env.COOKIEKEY],
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
   })
 );
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 // Look inside public folder to look for static files such as css, images etc.
 app.use("/", express.static(path.join(__dirname, "public")));
 
 // Define Routes
 app.use("/", require("./routes/root"));
-// Google auth routes
-require("./routes/api/authRoutes")(app);
+// Auth routes
+app.use(require("./routes/api/authRoutes"));
 // Jobs routes
-require("./routes/api/jobRoutes")(app);
+app.use(require("./routes/api/jobRoutes"));
 // profiles routes
-require("./routes/api/profileRoute.js")(app);
+app.use(require("./routes/api/profileRoute.js"));
 
 // Catch all the routes that reaches here after fail to match the routes above
 app.all("*", (req, res) => {
@@ -48,6 +42,8 @@ app.all("*", (req, res) => {
     res.type("txt").send("404 Not Found");
   }
 });
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
